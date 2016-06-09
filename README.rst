@@ -11,15 +11,17 @@ Installation
 
 Enter the cabot virtual environment::
 
-    $ pip install cabot_alert_telegram
-    $ foreman stop
+#    $ pip install cabot_alert_telegram
+#    $ foreman stop
 
 
 or::
 
 
-    $ pip install git+git://github.com/codesyntax/cabot_alert_telegram.git
+    $ pip install git+git://github.com/onagorodniuk/cabot_alert_telegram.git
     $ foreman stop
+	
+	add CABOT_PLUGINS_ENABLED=cabot_alert_telegram==0.3
 
 
 Edit `conf/*.env`::
