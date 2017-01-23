@@ -8,17 +8,14 @@ from os import environ as env
 
 import telebot
 
-telegram_template = """Service {{ service.name }} {{ scheme }}://{{ host }}{% url 'service' pk=service.id %} {% if service.overall_status != service.PASSING_STATUS %}allerting with status: {{ service.overall_status }}{% else %}is back to normal{% endif %}.
-{% if service.overall_status != service.PASSING_STATUS %}
-CHECKS FAILING:{% for check in service.all_failing_checks %}
-  {% if check.check_category == 'Jenkins check' %}{% if check.last_result.error %} {{ check.name }} ({{ check.last_result.error|safe }}) {{jenkins_api}}job/{{ check.name }}/{{ check.last_result.job_number }}/console{% else %} {{ check.name }} {{jenkins_api}}/job/{{ check.name }}/{{check.last_result.job_number}}/console {% endif %}{% else %}
+telegram_template = """{% if service.overall_status != service.PASSING_STATUS %} {% else %} {{ service.name }} is back to normal{% endif %}{% if service.overall_status != service.PASSING_STATUS %}{% for check in service.all_failing_checks %}  {% if check.check_category == 'Jenkins check' %}{% if check.last_result.error %} {{ check.name }} ({{ check.last_result.error|safe }}) {{jenkins_api}}job/{{ check.name }}/{{ check.last_result.job_number }}/console{% else %} {{ check.name }} {{jenkins_api}}/job/{{ check.name }}/{{check.last_result.job_number}}/console {% endif %}{% else %}
   {{ check.name }}:
     {{check.metric|truncatechars:70}}:
      {% if check.last_result.error %} {{ check.last_result.error|safe }}{% endif %}{% endif %}{% endfor %}
-{% if service.all_passing_checks %}
-{% endif %}
+Service {{ service.name }} {{ scheme }}://{{ host }}{% url 'service' pk=service.id %}
 {% endif %}
 """
+
 # This provides the telegram alias for each user.
 # Each object corresponds to a User
 
