@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='SnsAlert',
+            name='TelegramAlert',
             fields=[
                 ('alertplugin_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='cabotapp.AlertPlugin')),
             ],
@@ -22,10 +22,10 @@ class Migration(migrations.Migration):
             bases=('cabotapp.alertplugin',),
         ),
         migrations.CreateModel(
-            name='SnsAlertUserData',
+            name='TelegramAlertUserData',
             fields=[
                 ('alertpluginuserdata_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='cabotapp.AlertPluginUserData')),
-                ('sns_arn', models.CharField(max_length=1000, blank=True)),
+                ('telegram_id', models.CharField(max_length=1000, blank=True)),
             ],
             options={
                 'abstract': False,
